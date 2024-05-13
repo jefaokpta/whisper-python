@@ -2,7 +2,8 @@ import whisper
 
 model = whisper.load_model("large")
 
-filepath = "audios/geladeira.mp3"
+filepath = "audios/anderson.m4a"
+# filepath = "audios/geladeira.mp3"
 
 # load audio and pad/trim it to fit 30 seconds
 audio = whisper.load_audio(filepath)
@@ -16,13 +17,13 @@ _, probs = model.detect_language(mel)
 print(f"Detected language: {max(probs, key=probs.get)}")
 
 # decode the audio
-options = whisper.DecodingOptions(language="pt", fp16=False)
+# options = whisper.DecodingOptions(language="pt", fp16=False)
 # result = whisper.decode(model, mel, options)
 
 # # print the recognized text
 # print("parcial")
 # print(result.text)
 
-result = model.transcribe(filepath, fp16=False, beam_size=5, patience=2)
-print("final")
+result = model.transcribe(filepath, language="pt", fp16=False, beam_size=5, patience=2)
+
 print(result["text"])
